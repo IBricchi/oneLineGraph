@@ -3,59 +3,96 @@ import plotly.graph_objs as go
 import numpy as np
 from scipy import stats
 
-def oneLineGrapher(x, y, type, title='Graph', trace_name='Trace', mode='markers', trendline=False, trend_type='linear', trend_intercept=None):
-	x, y = np.array(x), np.array(y)
-	data, layout = [], []
-	if type == 'scatter':
-		#Basic Data
-		trace = go.Scatter(
-			x = x,
-			y = y,
-			mode = mode,
-			name = trace_name
-			)
-		data.append(trace)
-		#trendline
-		if(trendline):
-			if(trend_type == 'linear'):
-				if trend_intercept == None:
-					trendline_m, trendline_c = linreg(
-						_x = x,
-						_y = y
-						)
-					trendline_x = [0,x[-1]]
-				elif trend_intercept == 0:
-					trendline_m, trendline_c = linreg(
-						_x = x,
-						_y = y,
-						_intercept = 0
-						)
-					trendline_x = [0,x[-1]]
-				trendline_y = [trendline_m * trendline_x[i] + trendline_c for i in range(0, len(trendline_x))]
-		trendline_trace = go.Scatter(
-			x=trendline_x,
-		    y=trendline_y,
-		    mode = 'line',
-		    name = 'Trendline'
-			)
-		data.append(trendline_trace)
 
-		layout_settings = go.Layout(
-			title = title
-			)
-		layout.append(layout_settings)
-		return data, layout
-
-def linreg(_x, _y, _intercept=None):
-	if _intercept == 0:
-		x = _x[:,np.newaxis]
-		slope, _, _, _ = np.linalg.lstsq(x, _y)
-		slope = slope[0]
-		intercept = 0
-	else:
-		slope, intercept, r, p, stderror = stats.linregress(_x,_y)
-	return slope, intercept
+def olg(x, y, type, title='Graph', trace_name='Trace', mode='markers', trendline=False, trend_type='linear',
+        trend_intercept=False, trend_intercept_val=0):
+    x, y = np.array(x), np.array(y)
+    if type == 'scatter':
+        data, layout = scatter(
+            x=x,
+            y=y,
+            trace_name=trace_name,
+            mode=mode,
+            trendline=trendline,
+            trend_type=trend_type,
+            trend_intercept=trend_intercept,
+            trend_intercept_val=trend_intercept_val
+        )
+    return data, layout
 
 
+def scatter(x, y, trace_name, mode, trendline, trend_type, trend_intercept, trend_intercept_val):
+    print(trend_intercept_val)
+    data, layout = [], []
+    # Basic Data
+    trace = go.Scatter(
+        x=x,
+        y=y,
+        mode=mode,
+        name=trace_name
+    )
+    data.append(trace)
+    # trendline
+    if trendline:
+        trendline_trace = draw_trendline(
+            x=x,
+            y=y,
+            trend_type=trend_type,
+            intercept=trend_intercept,
+            intercept_val=trend_intercept_val
+        )
+        data.append(trendline_trace)
 
-    
+    layout_settings = go.Layout(
+        title='title'
+    )
+    layout.append(layout_settings)
+    return data, layout
+
+
+def draw_trendline(x, y, trend_type, intercept, intercept_val):
+    if trend_type == 'linear':
+        x, y = linear_trendline(
+            x=x,
+            y=y,
+            intercept=intercept,
+            intercept_val=intercept_val
+        )
+    trendline_trace = go.Scatter(
+        x=x,
+        y=y,
+        mode='line',
+        name='Trendline',
+    )
+    return trendline_trace
+
+
+def linear_trendline(x, y, intercept, intercept_val):
+    if intercept is None:
+        m, c = linreg(
+            x=x,
+            y=y
+        )
+        x = [0, x[-1]]
+    else:  # intercept == 0:
+        m, c = linreg(
+            x=x,
+            y=y,
+            intercept=intercept,
+            intercept_val=intercept_val
+        )
+        x = [0, x[-1]]
+    y = [m * x_val + c for x_val in x]
+    return x, y
+
+
+def linreg(x, y, intercept=False, intercept_val=0):
+    if intercept:
+        if intercept_val == 0:
+            x = x[:, np.newaxis]
+            m, _, _, _ = np.linalg.lstsq(x, y)
+            m = m[0]
+            c = intercept_val
+    else:
+        m, c, r, p, stderror = stats.linregress(x, y)
+    return m, c

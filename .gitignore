@@ -25,3 +25,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Directory created from pycharm IDE
+.idea
