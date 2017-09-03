@@ -4,10 +4,10 @@ import numpy as np
 from scipy import stats
 
 
-def olg(x, y, type, title='Graph', trace_name='Trace', mode='markers', trendline=False, trend_type='linear',
+def olg(x, y, graph_type, title='Graph', trace_name='Trace', mode='markers', trendline=False, trend_type='linear',
         trend_intercept=False, trend_intercept_val=0):
     x, y = np.array(x), np.array(y)
-    if type == 'scatter':
+    if graph_type == 'scatter':
         data, layout = scatter(
             x=x,
             y=y,
