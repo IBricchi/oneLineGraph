@@ -4,13 +4,18 @@ import numpy as np
 from scipy import stats
 
 
-def olg(x, y, graph_type, title='Graph', trace_name='Trace', mode='markers', trendline=False, trend_type='linear',
+def olg(x, y, graph_type, title='Graph', x_axis=True, x_axis_title='x-axis', y_axis=True, y_axis_title='y-axis', trace_name='Trace', mode='markers', trendline=False, trend_type='linear',
         trend_intercept=False, trend_intercept_val=0):
     x, y = np.array(x), np.array(y)
     if graph_type == 'scatter':
         data, layout = scatter(
             x=x,
             y=y,
+            title=title,
+            x_axis=x_axis,
+            x_axis_title=x_axis_title,
+            y_axis=y_axis,
+            y_axis_title=y_axis_title,
             trace_name=trace_name,
             mode=mode,
             trendline=trendline,
@@ -21,7 +26,7 @@ def olg(x, y, graph_type, title='Graph', trace_name='Trace', mode='markers', tre
     return data, layout
 
 
-def scatter(x, y, trace_name, mode, trendline, trend_type, trend_intercept, trend_intercept_val):
+def scatter(x, y, title, x_axis, x_axis_title, y_axis, y_axis_title, trace_name, mode, trendline, trend_type, trend_intercept, trend_intercept_val):
     print(trend_intercept_val)
     data, layout = [], []
     # Basic Data
@@ -43,11 +48,29 @@ def scatter(x, y, trace_name, mode, trendline, trend_type, trend_intercept, tren
         )
         data.append(trendline_trace)
 
-    layout_settings = go.Layout(
-        title='title'
+    layout_settings = scatter_layout(
+        title=title,
+        x_axis=x_axis,
+        x_axis_title=x_axis_title,
+        y_axis=y_axis,
+        y_axis_title=y_axis_title
     )
     layout.append(layout_settings)
     return data, layout
+
+
+def scatter_layout(title, x_axis, x_axis_title, y_axis, y_axis_title):
+    x_axis_dict = dict()
+    if x_axis: x_axis_dict['title'] = x_axis_title
+
+    y_axis_dict = dict()
+    if y_axis: y_axis_dict['title'] = y_axis_title
+    layout_settings = go.Layout(
+        title=title,
+        xaxis=x_axis_dict,
+        yaxis=y_axis_dict
+    )
+    return layout_settings
 
 
 def draw_trendline(x, y, trend_type, intercept, intercept_val):
