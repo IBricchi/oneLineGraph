@@ -28,3 +28,7 @@ Temporary Items
 
 # Directory created from pycharm IDE
 .idea
+
+# testing
+htmlcov
+.coverage
