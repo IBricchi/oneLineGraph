@@ -121,11 +121,14 @@ def linear_trendline(x, y, intercept, intercept_val):
 def linreg(x, y, intercept=False, intercept_val=0):
     extra = dict()
     if intercept:
+        extra[intercept] = intercept_val
         if intercept_val == 0:
             x = x[:, np.newaxis]
             m, _, _, _ = np.linalg.lstsq(x, y)
             m = m[0]
             c = intercept_val
+            formula = ['y = ', str(m), 'x + ', str(c)]
+            extra['m'], extra['c'], extra['formula'] = m, c, str.join('', formula)
     else:
         m, c, r, p, stderror = stats.linregress(x, y)
     return m, c, extra
