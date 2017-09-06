@@ -1,4 +1,4 @@
-#One Line Grapher
+# One Line Grapher
 One line grapher is a simple graphing tool built on top of the plotly python library and uses both numpy and scipy to take care of calculations. It combines all of the elements of graphing something using plotly but simplifies it by taking car of all of the extra processing required to make a graph be functional.
 
 ```
@@ -20,9 +20,9 @@ olg(
     show_trend_formula = <boolean> -see section 3.2.3  
 )
 ```
-##1) The basics
+## 1) The basics
 These are the most important parts of the graph, a decent graph can be made using only these parts of the function
-###1.1) Axis Values
+### 1.1) Axis Values
 ```
 olg(
     x = <list> *required
@@ -32,7 +32,7 @@ olg(
 ```
 Both the x-axis and y-axis values are defined by the x and y parameters of the olg function. Each should can be introduced into the function by either a list of floats, or a numpy array of floats.
 
-###1.2) Graph type
+### 1.2) Graph type
 ```
 olg(
     ...
@@ -46,7 +46,7 @@ Possible graph types are currently limited to
 
 Each of these has it's own special use more information can about each type of graph can be found by looking for section 2 subsection whatever position in the list the graph is in.
 
-###1.3) Graph title
+### 1.3) Graph title
 ```
 olg(
     ...
@@ -55,7 +55,7 @@ olg(
 )
 ```
 The graph title can be any string, if not specified it will be displayed as 'Graph'. If no title is desired just right input a space.
-###1.4) Axes
+### 1.4) Axes
 ```
 olg(
     ...
@@ -71,7 +71,7 @@ Currently changes to the axes are limited to naming them in future implementatio
 The boolean parameters x_axis, and y_axis each represent wether that axis will have a title. Both are set to False as default
 
 The string values x_axis_title, and y_axis_title each represent the text that will be labeling their respective axis, the default value is the name of the axis
-###1.5) Traces
+### 1.5) Traces
 
 ```
 olg(
@@ -82,13 +82,13 @@ olg(
 ```
 
 The trace name is simply the value assigned to the group of data, currently only one input trace can be processed at a time. This name will appear in the legend when displaying the graph.
-##2) Graph types
-###2.1) Scatter plots
+## 2) Graph types
+### 2.1) Scatter plots
 Scatter plots are graphs where the information is plotted on a two dimensional plane. These are very useful for visualising correlations between the value pairs being used. For information on how to plot this type of graph look for section 3
 
-##3)Scatter Plots
+## 3)Scatter Plots
 Using the olg function we can define our scatter plot by setting the graph type to ``graph_type = 'scatter'``. This type of graph has several special parameter which affect how the graph will look, and will also return extra information if so desired.
-###3.1) Mode
+### 3.1) Mode
 ```
 olg(
     ...
@@ -102,10 +102,10 @@ mode = 'line' #conects the points
 ```
 For a full list of modes please read the [Plotly Documentation](https://plot.ly)
 
-###3.2) Trendlines
+### 3.2) Trendlines
 Trendlines are an extreamly usefull tool for data analytics, and provide a unique insight into the correlation of data. Fortunately I have included a simple way to create trendlines as well as display the function which defines it.
 To tell the olg function that you require a trendline simply set ```trendline = True```, the trendline parameter is set to False by default
-####3.2.1) Trend type
+#### 3.2.1) Trend type
 ```
 olg(
     ...
@@ -117,9 +117,9 @@ The trend_type parameter is used to define what type of trend line should be use
 
 For more information on a how to use a particular type of trendline refer yourself to section 3.2.1 subsection whatever position in the list the trendline is in.
 
-#####3.2.1.1) Linear Trendlines
+##### 3.2.1.1) Linear Trendlines
 Linear trendline are the simplest of the trendlines and show a linear correlation they allow for simple analysis of data. To use this type of trendline the trend_type parameter should be set to ```trend_type = 'linear'`` are displayed using the linear function ```y = mx + c```. The basic linear trendline
-#####3.2.1.1.1) Intercept
+###### 3.2.1.1.1) Intercept
 ```
 olg(
     ...
