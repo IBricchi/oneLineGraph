@@ -42,9 +42,9 @@ olg(
 ```
 
 Possible graph types are currently limited to
-1. Scatter
+1. [Scatter](#21-scatter-plots)
 
-Each of these has it's own special use more information can about each type of graph can be found by looking for section 2 subsection whatever position in the list the graph is in.
+Each of these has it's own special use more information can about each type of graph can be found by looking for [section 2](#2-graph-types) subsection whatever position in the list the graph is in.
 
 ### 1.3) Graph title
 ```
@@ -84,7 +84,7 @@ olg(
 The trace name is simply the value assigned to the group of data, currently only one input trace can be processed at a time. This name will appear in the legend when displaying the graph.
 ## 2) Graph types
 ### 2.1) Scatter plots
-Scatter plots are graphs where the information is plotted on a two dimensional plane. These are very useful for visualising correlations between the value pairs being used. For information on how to plot this type of graph look for section 3
+Scatter plots are graphs where the information is plotted on a two dimensional plane. These are very useful for visualising correlations between the value pairs being used. For information on how to plot this type of graph go to [section 3](#3scatter-plots)
 
 ## 3)Scatter Plots
 Using the olg function we can define our scatter plot by setting the graph type to ``graph_type = 'scatter'``. This type of graph has several special parameter which affect how the graph will look, and will also return extra information if so desired.
